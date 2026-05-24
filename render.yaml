@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: viral-clipper-api
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: starter          # $7/mo — upgrade to standard for more RAM
+    healthCheckPath: /health
+    envVars:
+      - key: ASSEMBLYAI_API_KEY
+        sync: false        # set in Render dashboard
+      - key: WORK_DIR
+        value: /tmp/viral-clipper
+      - key: PORT
+        value: 8000
+    disk:
+      name: clips-storage
+      mountPath: /tmp/viral-clipper
+      sizeGB: 10
